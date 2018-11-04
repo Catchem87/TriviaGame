@@ -1,0 +1,18 @@
+.container {
+    background: white;
+    margin: 10%;
+    border: solid 1pt darkgray;
+}
+.header {
+    text-align: center;
+    font-family: 'Rock Salt', cursive;
+    padding: 2.5%;
+}
+.start {
+    width: 120px;
+    margin: 0px 20px 0px 20px;
+}
+.timerDisplay {
+    align-content: center;
+    font-family: 'Rock Salt', cursive;
+}
