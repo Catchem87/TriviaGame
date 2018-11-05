@@ -2,6 +2,8 @@
     background: white;
     margin: 10%;
     border: solid 1pt darkgray;
+    height: 450px;
+    width: 1200px;
 }
 .header {
     text-align: center;
@@ -9,10 +11,47 @@
     padding: 2.5%;
 }
 .start {
-    width: 120px;
-    margin: 0px 20px 0px 20px;
+    position: relative;
+    left: 300px;
+    width: 200px;
+    height: 125px;
+    margin: 0px 20px 20px 20px;
+    border-radius: 25px;
+    border: 2px solid #33cc33;
+    background-color: #d6f5d6;
+    font-family: 'Rock Salt', cursive;
+    font-size: 24pt;
 }
 .timerDisplay {
-    align-content: center;
+    padding-left: 30%;
     font-family: 'Rock Salt', cursive;
+    margin-bottom: 25px;
+}
+.current-question {
+    font-family: 'Rock Salt', cursive;
+    font-size: 20pt;
+    margin-bottom: 15px;
+    color: #0066cc;
+}
+.answerOpt {
+    width: 200px;
+    height: 75px;
+    border-radius: 25px;
+    border: 2px solid #0066cc;
+    background-color: #e6f2ff;
+    font-family: 'Rock Salt', cursive;
+    margin: 5px;
+    font-size: 21pt;
+}
+#correct-answers {
+    font-family: 'Rock Salt', cursive;
+    font-size: 24pt;
+    position: relative;
+    left: 250px;
+}
+#incorrect-answers {
+    font-family: 'Rock Salt', cursive;
+    font-size: 24pt;
+    position: relative;
+    left: 250px;
 }
