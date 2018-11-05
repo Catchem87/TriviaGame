@@ -39,6 +39,7 @@ $(document).ready(function() {
         var currentQuestion = questions[questionCounter];
 
             var $currentQuestion = $('<div>');
+            $currentQuestion.addClass("current-question");
             var $opt1 = $('<button>');
             $opt1.addClass("answerOpt");
             $opt1.attr("value", currentQuestion.option1);
@@ -79,6 +80,7 @@ $(document).ready(function() {
             alert("TIME UP");
             questionCounter = 0;
             $('#timerDisplay').html("");
+            $('.start').html("Play Again");
             $('#startButton').show();
             $('#correct-answers').html("Correct Answers: " + correctAnswers);
             $('#incorrect-answers').html("Incorrect Answers: " + incorrectAnswers);
@@ -89,6 +91,7 @@ $(document).ready(function() {
             stop();
             questionCounter = 0;
             $('#timerDisplay').html("");
+            $('.start').html("Play Again");
             $('#startButton').show();
             $('#correct-answers').html("Correct Answers: " + correctAnswers);
             $('#incorrect-answers').html("Incorrect Answers: " + incorrectAnswers);
@@ -118,12 +121,10 @@ $(document).ready(function() {
     function checkAnswer() {
         console.log($(this));
         if($(this).val() === questions[questionCounter].answer) {
-            alert("You got it right!")
             questionCounter++;
             correctAnswers++;
             tracker();
         } else {
-            alert ("You got it wrong!")
             questionCounter++;
             incorrectAnswers++;
             tracker();
