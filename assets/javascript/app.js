@@ -30,45 +30,63 @@ $(document).ready(function() {
         "answer": "Barry",
     }]
 
+    var questionCounter = 0;
+
     function loadQuestion() {
-        var i = 0;
-        for(i=0; i < questions.length; i++) {
+        loadTimer();
+        $("#question-appears-here").html("");
+        var currentQuestion = questions[questionCounter];
+
+        // for(var i=0; i < questions.length; i++) {
             var $currentQuestion = $('<div>');
             var $opt1 = $('<button>');
             $opt1.addClass("answerOpt");
+            $opt1.attr("value", currentQuestion.option1);
             var $opt2 = $('<button>');
             $opt2.addClass("answerOpt");
+            $opt2.attr("value", currentQuestion.option2);
             var $opt3 = $('<button>');
             $opt3.addClass("answerOpt");
+            $opt3.attr("value", currentQuestion.option3);
             var $opt4 = $('<button>');
             $opt4.addClass("answerOpt");
+            $opt4.attr("value", currentQuestion.option4);
 
 
-            $currentQuestion.html(questions[i].question);
-            $opt1.html(questions[i].option1);
-            $opt2.html(questions[i].option2);
-            $opt3.html(questions[i].option3);
-            $opt4.html(questions[i].option4);
+            $currentQuestion.html(currentQuestion.question);
+            $opt1.html(currentQuestion.option1);
+            $opt2.html(currentQuestion.option2);
+            $opt3.html(currentQuestion.option3);
+            $opt4.html(currentQuestion.option4);
 
-            loadTimer();
             $('#question-appears-here').append($currentQuestion, $opt1, $opt2, $opt3, $opt4);
-        }
+        // }
     }
 
-    var timerNumber = 16;
+    var timerNumber = 10;
     var intervalId = "";
 
 
     function loadTimer() {
         clearInterval(intervalId);
         intervalId = setInterval(decrement, 1000);
-    }
+        }
 
+    function timeUp() {
+            $('#question-appears-here').html("");
+            alert("TIME UP");
+            questionCounter = 0;
+            timerNumber = 10;
+            $('#timerDisplay').html("");
+            $('#startButton').show();
+        }
+        
     function decrement() {
         timerNumber--;
         $('#timerDisplay').html("<h3>" + "Time remaining :" + timerNumber + "</h3>");
         if(timerNumber === 0) {
             stop();
+            timeUp();
         }
     }
 
@@ -76,12 +94,24 @@ $(document).ready(function() {
         clearInterval(intervalId);
     }
 
+    function checkAnswer() {
+        console.log($(this));
+        if($(this).val() === questions[questionCounter].answer) {
+            alert("You got it right!")
+            questionCounter++;
+            loadQuestion();
+        } else {
+            alert ("You got it wrong!")
+        }
+    }
 
     $('#startButton').click(function(){
         $('#startButton').hide();
     })
 
     $(document).on('click', '.start', loadQuestion);
+
+    $(document).on('click', '.answerOpt', checkAnswer);
 
     console.log(questions);
 
