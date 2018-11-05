@@ -32,12 +32,12 @@ $(document).ready(function() {
 
     var questionCounter = 0;
 
+
     function loadQuestion() {
         loadTimer();
         $("#question-appears-here").html("");
         var currentQuestion = questions[questionCounter];
 
-        // for(var i=0; i < questions.length; i++) {
             var $currentQuestion = $('<div>');
             var $opt1 = $('<button>');
             $opt1.addClass("answerOpt");
@@ -60,26 +60,44 @@ $(document).ready(function() {
             $opt4.html(currentQuestion.option4);
 
             $('#question-appears-here').append($currentQuestion, $opt1, $opt2, $opt3, $opt4);
-        // }
     }
 
-    var timerNumber = 10;
+    var timerNumber = 11;
     var intervalId = "";
+    var correctAnswers = 0;
+    var incorrectAnswers = 0;
 
 
     function loadTimer() {
         clearInterval(intervalId);
         intervalId = setInterval(decrement, 1000);
+        timerNumber = 11;
         }
 
     function timeUp() {
             $('#question-appears-here').html("");
             alert("TIME UP");
             questionCounter = 0;
-            timerNumber = 10;
             $('#timerDisplay').html("");
             $('#startButton').show();
+            $('#correct-answers').html("Correct Answers: " + correctAnswers);
+            $('#incorrect-answers').html("Incorrect Answers: " + incorrectAnswers);
         }
+
+    function tracker() {
+        if(questionCounter === 4) {
+            stop();
+            questionCounter = 0;
+            $('#timerDisplay').html("");
+            $('#startButton').show();
+            $('#correct-answers').html("Correct Answers: " + correctAnswers);
+            $('#incorrect-answers').html("Incorrect Answers: " + incorrectAnswers);
+            $('#question-appears-here').html("");
+        } else {
+            loadQuestion();
+        }
+    }
+
         
     function decrement() {
         timerNumber--;
@@ -87,6 +105,9 @@ $(document).ready(function() {
         if(timerNumber === 0) {
             stop();
             timeUp();
+        }
+        if(questionCounter === 4) {
+            stop();
         }
     }
 
@@ -99,17 +120,30 @@ $(document).ready(function() {
         if($(this).val() === questions[questionCounter].answer) {
             alert("You got it right!")
             questionCounter++;
-            loadQuestion();
+            correctAnswers++;
+            tracker();
         } else {
             alert ("You got it wrong!")
+            questionCounter++;
+            incorrectAnswers++;
+            tracker();
         }
+    }
+
+    function reset() {
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        $('#correct-answers').html("");
+        $('#incorrect-answers').html("");
+        $("#question-appears-here").html("");
+        loadQuestion();
     }
 
     $('#startButton').click(function(){
         $('#startButton').hide();
     })
 
-    $(document).on('click', '.start', loadQuestion);
+    $(document).on('click', '.start', reset);
 
     $(document).on('click', '.answerOpt', checkAnswer);
 
